@@ -207,12 +207,12 @@ export default function App() {
               */}
               
               <video 
-                src="https://drive.google.com/uc?export=download&id=1wzCwmXm0RooFI32mPAkZggkcavpcGBL"
+                src="https://mydrive.akeelaasath.workers.dev/0:/gary_sources/introvideo.mp4"
                 autoPlay 
                 muted 
                 loop 
                 playsInline 
-                controls
+                preload="auto"
                 className="w-full h-full object-cover"
               />
             </div>
