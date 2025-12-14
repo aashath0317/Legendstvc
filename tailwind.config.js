@@ -1,20 +1,22 @@
 /** @type {import('tailwindcss').Config} */
+import animate from "tailwindcss-animate" // Add this import
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    // This section controls the global width of your website
+    // ... keep your existing theme settings ...
     container: {
-      center: true,       // Automatically centers the website
-      padding: '2rem',    // Adds 2rem (32px) padding on the sides for mobile
+      center: true,
+      padding: '2rem',
       screens: {
         sm: '640px',
         md: '768px',
         lg: '1024px',
-        xl: '1152px',     // Locks width to 1152px on large screens
-        '2xl': '1152px',  // KEEPS it at 1152px even on huge screens (This is the "80%" effect)
+        xl: '1152px',
+        '2xl': '1152px',
       },
     },
     extend: {
@@ -26,5 +28,7 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    animate 
+  ],
 }
