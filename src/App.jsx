@@ -198,8 +198,16 @@ export default function App() {
           <div className="animate-in slide-in-from-right duration-700 fade-in delay-200">
              {/* Video Player */}
             <div className="relative z-10 aspect-video bg-gray-800 border-2 border-gray-800 shadow-2xl mb-1">
+              
+              {/* GOOGLE DRIVE INSTRUCTIONS:
+                1. Make sure your video on Google Drive is set to "Anyone with the link".
+                2. Copy the "Share" link (e.g., https://drive.google.com/file/d/123XYZ/view?usp=sharing).
+                3. Extract the ID: 123XYZ
+                4. Use the format: https://drive.google.com/uc?export=download&id=123XYZ
+              */}
+              
               <video 
-                src="/introvideo.mp4" 
+                src="https://drive.google.com/uc?export=download&id=1wzCwmXm0RooFI32mPAkZggkcavpcGBL"
                 autoPlay 
                 muted 
                 loop 
