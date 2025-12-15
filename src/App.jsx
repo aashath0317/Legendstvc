@@ -199,7 +199,6 @@ export default function App() {
                 viewType="video"
                 streamType="on-demand"
                 logLevel="warn"
-                crossOrigin
                 playsInline
                 autoPlay
                 muted
