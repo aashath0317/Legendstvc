@@ -135,9 +135,19 @@ export default function App() {
               <Button className="py-3 px-8 text-xs ml-4" animated={true}>Invest Now</Button>
             </nav>
 
-            <button className="lg:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <button className="lg:hidden text-white z-50 relative" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X /> : <Menu />}
             </button>
+
+            {/* Mobile Menu Overlay */}
+            {isMenuOpen && (
+              <div className="absolute top-full left-0 right-0 bg-zinc-900/95 backdrop-blur-lg border-b border-gray-800 p-6 flex flex-col items-center space-y-6 lg:hidden shadow-2xl animate-in slide-in-from-top-5">
+                <a href="#mission" className="text-lg font-bold uppercase tracking-widest text-white" onClick={() => setIsMenuOpen(false)}>Opportunity</a>
+                <a href="#platform" className="text-lg font-bold uppercase tracking-widest text-white" onClick={() => setIsMenuOpen(false)}>Platform</a>
+                <a href="#roadmap" className="text-lg font-bold uppercase tracking-widest text-white" onClick={() => setIsMenuOpen(false)}>Roadmap</a>
+                <Button className="w-full" animated={true}>Invest Now</Button>
+              </div>
+            )}
           </div>
         </header>
       </div>
@@ -257,7 +267,7 @@ export default function App() {
       {/* --- OPPORTUNITY SECTION (BG WHITE/TEXTURE) --- */}
       <section
         id="opportunity"
-        className="py-24 relative bg-white text-black bg-no-repeat"
+        className="py-24 relative bg-white text-blackZS bg-no-repeat"
         style={{
           backgroundImage: "url('/opportunity_bg.webp')",
           backgroundPosition: "center 500px",
@@ -415,7 +425,7 @@ export default function App() {
               {/* Stat 1 */}
               <div className="flex flex-col">
                 <div className="flex items-center gap-3 mb-2">
-                  <Home className="text-red-600 w-8 h-8 icon-glow" strokeWidth={2.5} />
+                  <Home className="text-red-600 w-8 h-8 icon-glow" Hz strokeWidth={2.5} />
                   <span className="text-5xl font-anton text-red-600 text-glow">300M+</span>
                 </div>
                 <p className="text-gray-300 font-bold uppercase text-xs tracking-wider">
@@ -485,13 +495,14 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- ROADMAP SECTION (Replaces Team) --- */}
+      {/* --- ROADMAP SECTION --- */}
       <section id="roadmap" className="bg-black py-24 border-y border-gray-800">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 relative">
+        {/* ADDED items-start TO GRID to ensure sticky column works with long content */}
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 relative items-start">
 
           {/* LEFT: Sticky Text Content */}
-          <div className="hidden lg:block">
-            <div className="sticky top-32">
+          <div className="hidden lg:block sticky top-32">
+            <div>
               <div className="text-gray-400 font-bold italic uppercase tracking-wider text-sm mb-4">
                 Roadmap
               </div>
@@ -499,7 +510,7 @@ export default function App() {
                 Built Different: <br /> A Track Record of <br /> Transformation
               </h2>
               <p className="text-gray-400 text-lg leading-relaxed font-medium">
-                PlayersTV is riding massive momentum, fueled by over <span className="text-white font-bold">$6.4M+</span> raised from an unprecedented mix of superstar athletes and 2,200+ passionate fan investors. We've secured marquee distribution across OTT, CTV, and digital platforms, unlocking direct access to millions of fans. Backed by an elite roster of athlete-owners and creators, our content meets the fans where they are. And with the acquisition of game-changing advertising technology, we're now positioned to scale revenue like never before—turning attention into untapped revenue.
+                PlayersTV is riding massive momentum, fueled by over <span className="text-white font-bold">$6.4M*</span> raised from an unprecedented mix of superstar athletes and 2,200+ passionate fan investors. We've secured marquee distribution across OTT, CTV, and digital platforms, unlocking direct access to millions of fans. Backed by an elite roster of athlete-owners and creators, our content meets the fans where they are. And with the acquisition of game-changing advertising technology, we're now positioned to scale revenue like never before—turning attention into untapped revenue.
               </p>
               <p className="text-[10px] text-gray-600 mt-4">*The amount includes related entities.</p>
             </div>
@@ -514,12 +525,12 @@ export default function App() {
               Built Different: A Track Record of Transformation
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed">
-              PlayersTV is riding massive momentum, fueled by over $6.4M+ raised...
+              PlayersTV is riding massive momentum, fueled by over $6.4M* raised...
             </p>
           </div>
 
           {/* RIGHT: Scrollable Roadmap Items */}
-          <div className="relative pl-8 border-l-2 border-gray-800">
+          <div className="relative pl-8 lg:border-l-0 border-l-2 border-transparent">
             <RoadmapList />
           </div>
 
@@ -548,7 +559,7 @@ export default function App() {
 }
 
 /**
- * Roadmap Item List Component with Scroll Trigger
+ * Roadmap Item List Component
  */
 const RoadmapList = () => {
   const items = [
@@ -569,58 +580,83 @@ const RoadmapList = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      {items.map((item, index) => (
-        <RoadmapItem key={index} text={item.label} status={item.status} />
-      ))}
+    <div className="relative pl-4 lg:pl-0">
+      {/* Vertical Timeline Line */}
+      <div className="absolute left-9 lg:left-5 top-2 bottom-10 w-[2px] bg-gray-800"></div>
+
+      <div className="space-y-8 relative z-10 pb-24">
+        {items.map((item, index) => (
+          <RoadmapItem key={index} text={item.label} status={item.status} />
+        ))}
+      </div>
     </div>
   );
 };
 
 /**
  * Individual Roadmap Item
- * Handles its own intersection observer state
+ * - Reversible Animation (Scroll Up/Down)
+ * - Scale Animation for Checkmark
  */
 const RoadmapItem = ({ text, status }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const domRef = useRef();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => setIsVisible(entry.isIntersecting));
-    }, { threshold: 0.5, rootMargin: "-10% 0px -10% 0px" });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Updates state based on intersection (allows reversing)
+          setIsInView(entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the item is visible
+        rootMargin: "0px 0px -20% 0px" // Offset slightly so it triggers closer to center
+      }
+    );
 
     if (domRef.current) observer.observe(domRef.current);
     return () => observer.disconnect();
   }, []);
 
+  // "upcoming" items (Coming Soon) never get the red active state
   const isCompleted = status === "completed";
-  const isActive = isVisible && isCompleted; // Only glow if visible AND completed
+  const isActive = isCompleted && isInView;
 
   return (
     <div
       ref={domRef}
-      className={`
-        transform transition-all duration-700 ease-out flex items-center gap-6 p-6 rounded-lg border
-        ${isActive
-          ? "bg-red-600 border-red-600 translate-x-2 shadow-[0_0_30px_rgba(220,38,38,0.4)]"
-          : "bg-black border-gray-800 opacity-60"
-        }
-      `}
+      className="flex items-center gap-6 group"
     >
-      <div className={`
-        shrink-0 w-8 h-8 rounded-full flex items-center justify-center border-2 transition-colors duration-500
-        ${isActive ? "border-white bg-white text-red-600" : "border-gray-600 text-transparent"}
-      `}>
-        {isActive ? <Check size={18} strokeWidth={4} /> : <Circle size={18} />}
+      {/* Circle Marker */}
+      <div
+        className={`
+          shrink-0 w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 z-10 relative
+          ${isActive
+            ? "bg-red-600 border-red-600 scale-110 shadow-[0_0_15px_rgba(220,38,38,0.6)]"
+            : "bg-black border-gray-700 scale-100"
+          }
+        `}
+      >
+        {/* Checkmark Container with Scale Animation */}
+        <div className={`transform transition-transform duration-500 ease-back-out ${isActive ? 'scale-100' : 'scale-0'}`}>
+          <Check className="text-white w-5 h-5" strokeWidth={3} />
+        </div>
       </div>
 
-      <span className={`
-        text-lg md:text-xl font-anton uppercase tracking-wide transition-colors duration-500
-        ${isActive ? "text-white" : "text-gray-500"}
-      `}>
+      {/* Card Content */}
+      <div
+        className={`
+          flex-1 py-5 px-6 uppercase font-bold text-sm md:text-base tracking-widest transition-all duration-500 ease-out transform
+          ${isActive
+            ? "bg-red-600 text-white translate-x-2 shadow-xl"
+            : "bg-[#1A1A1A] text-gray-400 translate-x-0 opacity-80"
+          }
+        `}
+      >
         {text}
-      </span>
+      </div>
     </div>
   );
 };
@@ -628,7 +664,6 @@ const RoadmapItem = ({ text, status }) => {
 /**
  * Helper Components
  */
-
 const ComparisonRow = ({ title, desc }) => (
   <div className="flex items-start gap-5 p-4 rounded-lg hover:bg-gray-900/50 transition duration-300">
     <div className="mt-1 w-8 h-8 rounded-full bg-red-600/10 text-red-600 flex items-center justify-center shrink-0 border border-red-600/20">
