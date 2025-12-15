@@ -249,9 +249,14 @@ export default function App() {
       {/* --- OPPORTUNITY SECTION (BG WHITE/TEXTURE) --- */}
       <section
         id="opportunity"
-        className="py-24 relative bg-white text-black bg-cover bg-center"
-        style={{ backgroundImage: "url('/opportunity_bg.webp')" }}
+        className="py-24 relative bg-white text-black bg-no-repeat"
+        style={{
+          backgroundImage: "url('/opportunity_bg.webp')",
+          backgroundPosition: "center 500px",
+          backgroundSize: "100% auto"
+        }}
       >
+        <div className="absolute inset-0 bg-white/50 pointer-events-none z-0"></div>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
           {/* Left Content */}
           <div className="space-y-6">
@@ -301,101 +306,89 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- MISSION SECTION --- */}
-      <Section id="mission" className="bg-zinc-950">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-12 h-1 bg-red-600"></div>
-              <h3 className="text-red-600 font-bold tracking-wider uppercase text-sm">The Mission</h3>
-            </div>
-            <SectionHeading align="left">More Than <br /> Entertainment. <br />A <span className="text-red-600">Movement.</span></SectionHeading>
-            <p className="text-gray-400 leading-relaxed mb-8 text-lg">
-              Athletes have been the product for too long. LegendsTV puts the power back in their hands, creating an ecosystem where fans get authentic access and athletes own their narratives.
-            </p>
-            <ul className="space-y-6">
-              {[
-                { title: 'Athlete Owned & Operated', desc: '50+ investor athletes shaping the direction.' },
-                { title: 'Premium Original Content', desc: 'Emmy-winning documentaries and series.' },
-                { title: 'Global Distribution', desc: 'Reaching 300M+ households worldwide.' }
-              ].map((item, idx) => (
-                <li key={idx} className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded bg-red-600/20 flex items-center justify-center shrink-0 mt-1">
-                    <Check className="w-5 h-5 text-red-500" />
-                  </div>
-                  <div>
-                    <h4 className="font-anton text-xl uppercase mb-1">{item.title}</h4>
-                    <p className="text-gray-500 text-sm">{item.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <StatCard number="280M+" label="Monthly Views" icon={<Globe className="w-6 h-6 text-red-500 mb-2" />} />
-            <StatCard number="100+" label="Athlete Partners" icon={<div className="font-black text-red-500 text-xl mb-1">★</div>} />
-            <StatCard number="300M+" label="Connected Devices" icon={<Monitor className="w-6 h-6 text-red-500 mb-2" />} />
-            <StatCard number="#1" label="Athlete Network" icon={<div className="font-black text-red-500 text-xl mb-1">#1</div>} />
-          </div>
-        </div>
-      </Section>
-
       {/* --- PLATFORM SHOWCASE --- */}
-      <Section id="platform">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <SectionHeading>Fueling The Creator Economy</SectionHeading>
-          <p className="text-gray-400 text-lg">Available on every major streaming platform. We are meeting fans where they are.</p>
-        </div>
+      <Section id="platform" className="bg-black">
+        {/* INJECT STYLES DIRECTLY */}
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee-fast {
+            animation: marquee 10s linear infinite; /* Speed: 10s */
+            width: max-content;
+          }
+        `}</style>
 
-        {/* Device Mockups */}
-        <div className="relative my-20">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[50%] bg-red-600 blur-[120px] opacity-20"></div>
+        {(() => {
+          const partners = ['fubo', 'DIRECTV', 'firetv', 'philo', 'YouTube TV', 'Apple TV', 'Roku', 'fubo', 'DIRECTV', 'firetv', 'philo', 'YouTube TV', 'Apple TV', 'Roku'];
 
-          <div className="relative grid grid-cols-1 md:grid-cols-12 gap-4 items-end max-w-6xl mx-auto">
-            {/* Phone Left */}
-            <div className="hidden md:block md:col-span-3 z-10 translate-x-8 translate-y-4">
-              <div className="bg-black border-4 border-gray-800 rounded-[2.5rem] overflow-hidden shadow-2xl h-[500px] w-[260px] mx-auto relative">
-                <img src="https://images.unsplash.com/photo-1542395975-d6d3dd0619cd?q=80&w=800&auto=format&fit=crop" alt="Mobile App" className="w-full h-full object-cover opacity-80" />
-                <div className="absolute bottom-8 left-0 right-0 text-center">
-                  <div className="bg-red-600 w-12 h-12 rounded-full mx-auto flex items-center justify-center">
-                    <Play className="fill-white ml-1 w-5 h-5" />
+          return (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+              {/* LEFT COLUMN: TV + PARTNERS */}
+              <div className="flex flex-col w-full">
+
+                {/* TV Image (Centered) */}
+                <div className="relative z-10 w-full max-w-xl mx-auto">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-red-600 blur-[100px] opacity-20 pointer-events-none"></div>
+                  <img
+                    src="/TV.webp"
+                    alt="TV Interface"
+                    className="w-full h-auto object-contain drop-shadow-2xl relative z-10"
+                  />
+                </div>
+
+                {/* PARTNERS SECTION (Centered under TV) */}
+                <div className="w-full max-w-xl mx-auto mt-8">
+                  {/* Header: Centered Text */}
+                  <h3 className="text-white font-anton uppercase tracking-widest mb-6 text-xl text-center">
+                    World-Class Partner Platforms
+                  </h3>
+
+                  {/* Marquee Container */}
+                  <div className="relative w-full overflow-hidden h-16 flex items-center bg-zinc-900/30 rounded-lg border border-white/5">
+                    <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-black to-transparent z-20"></div>
+                    <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black to-transparent z-20"></div>
+
+                    {/* Moving Track */}
+                    <div className="animate-marquee-fast flex items-center gap-12 pl-4">
+                      {partners.map((brand, i) => (
+                        <span key={i} className="text-2xl font-black italic text-gray-400 shrink-0 uppercase tracking-tighter hover:text-white transition-colors">
+                          {brand}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* TV Center */}
-            <div className="md:col-span-6 z-20 md:-mb-8">
-              <div className="bg-black border-b-8 border-gray-800 rounded-xl overflow-hidden shadow-2xl aspect-video relative">
-                <img src="https://images.unsplash.com/photo-1579952363873-27f3bde9be2b?q=80&w=2070&auto=format&fit=crop" alt="Smart TV Interface" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-8">
-                  <h4 className="text-3xl font-anton uppercase mb-2">The Warmup</h4>
-                  <p className="text-gray-300">New episodes every Tuesday</p>
+              </div>
+
+              {/* RIGHT COLUMN: TEXT CONTENT */}
+              <div className="flex flex-col justify-center lg:pl-8 lg:pt-12">
+                <div className="text-white italic font-bold mb-4 tracking-widest text-sm uppercase flex items-center gap-3">
+                  <span className="w-8 h-[2px] bg-red-600"></span>
+                  Innovation
+                </div>
+                <h2 className="text-5xl md:text-7xl font-anton uppercase mb-8 leading-[0.9]">
+                  Our Premium <br /> Distribution Partners
+                </h2>
+                <div className="space-y-6 text-gray-400 text-lg leading-relaxed font-medium">
+                  <p>
+                    LegendsTV is one of the first-ever athlete-fan owned media companies, built to revolutionize how fans experience athlete-lifestyle content.
+                  </p>
+                  <p>
+                    Our 360° distribution model—spanning streaming, social, and direct-to-consumer platforms—was designed to finally give athletes the power to control their own narratives.
+                  </p>
+                  <p>
+                    LegendsTV flips the script, putting the athletes in charge and unlocking an entirely new category of media.
+                  </p>
                 </div>
               </div>
-              <div className="w-1/3 h-4 bg-gray-800 mx-auto rounded-b-xl"></div>
-            </div>
 
-            {/* Tablet Right */}
-            <div className="hidden md:block md:col-span-3 z-10 -translate-x-8 translate-y-4">
-              <div className="bg-black border-4 border-gray-800 rounded-2xl overflow-hidden shadow-2xl h-[400px] w-[300px] mx-auto relative">
-                <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?q=80&w=900&auto=format&fit=crop" alt="Tablet App" className="w-full h-full object-cover opacity-80" />
-              </div>
             </div>
-          </div>
-        </div>
-
-        {/* Partners Grid */}
-        <div className="mt-24 pt-12 border-t border-gray-800">
-          <p className="text-center text-gray-500 font-bold mb-10 text-xs tracking-[0.2em]">DISTRIBUTION PARTNERS</p>
-          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12 opacity-60">
-            {['Samsung TV+', 'Vizio', 'Roku Channel', 'YouTube TV', 'Amazon fireTV', 'LG Channels', 'Sling'].map(brand => (
-              <div key={brand} className="text-xl md:text-2xl font-black font-anton text-gray-400 hover:text-white transition cursor-default">
-                {brand}
-              </div>
-            ))}
-          </div>
-        </div>
+          );
+        })()}
       </Section>
 
       {/* --- COMPARISON / WHY INVEST --- */}
