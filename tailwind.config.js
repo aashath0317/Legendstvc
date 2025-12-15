@@ -24,11 +24,18 @@ export default {
         anton: ['Anton', 'sans-serif'], // Added Anton font
       },
       animation: {
-        'spin-slow': 'spin 3s linear infinite',
+        'spin-slow': 'spin 8s linear infinite',
+        marquee: 'marquee 30s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' }, // Move half width because we duplicate the list
+        },
       },
     },
   },
   plugins: [
-    animate 
+    animate
   ],
 }
