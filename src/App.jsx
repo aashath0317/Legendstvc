@@ -70,8 +70,8 @@ const BreakingNewsTicker = () => (
       <span className="skew-x-[10deg]">Breaking News:</span>
     </div>
     <div className="flex items-center w-full overflow-hidden whitespace-nowrap">
-      <div className="animate-marquee flex items-center w-max">
-        <div className="flex items-center">
+      <div className="animate-marqueeVZ flex items-center w-max">
+        <div className="flex items-center animate-marquee">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="flex items-center">
               <span className="text-gray-300 text-xs font-bold uppercase tracking-wide px-4">Watch Co-Founder <span className="text-white">Akeel Asath</span> on Bloomberg</span>
@@ -237,26 +237,24 @@ export default function App() {
         </div>
       </div>
 
-      {/* --- 50+ PROFESSIONAL Legend INVESTORS (BG: #181818) --- */}
+      {/* --- 50+ PROFESSIONAL Legend  INVESTORS (BG: #181818) --- */}
       <div className="bg-[#181818] py-20 border-y border-gray-800 overflow-hidden">
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12 mb-16">
-          <h3 className="text-center font-anton text-3xl md:text-4xl uppercase text-white tracking-wide">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
+          <h3 className="text-center font-anton text-3xl md:text-4xl uppercase text-white mb-16 tracking-wide">
             50+ Professional Legend Investors
           </h3>
         </div>
 
-        <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-12">
-            {athletes.map((athlete, i) => (
-              <div key={i} className="flex flex-col items-center group space-y-4">
-                <div className="w-full overflow-hidden rounded-md bg-black/50">
-                  <img
-                    src={athlete.img}
-                    alt={athlete.name}
-                    className="w-full h-auto object-cover aspect-[3/4] transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <p className="text-sm font-bold uppercase text-gray-400 font-anton tracking-widest text-center group-hover:text-white transition-colors">
+        <div className="flex w-full overflow-hidden mask-image-gradient">
+          <div className="animate-marquee-custom flex items-center gap-12 pl-12">
+            {[...athletes, ...athletes, ...athletes].map((athlete, i) => (
+              <div key={i} className="flex flex-col items-center shrink-0 space-y-4">
+                <img
+                  src={athlete.img}
+                  alt={athlete.name}
+                  className="h-64 w-auto max-w-none object-containZS rounded-md"
+                />
+                <p className="text-sm font-bold uppercase text-gray-400 font-anton tracking-widest text-center">
                   {athlete.name}
                 </p>
               </div>
@@ -277,6 +275,7 @@ export default function App() {
       >
         <div className="absolute inset-0 bg-white/50 pointer-events-none z-0"></div>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+          {/* Left Content */}
           <div className="space-y-6">
             <div className="text-red-600 font-black italic uppercase tracking-wider text-sm">Opportunity</div>
             <SectionHeading align="left" color="text-black">
@@ -287,6 +286,7 @@ export default function App() {
             </p>
           </div>
 
+          {/* Right Content - BY THE NUMBERS */}
           <div className="flex flex-col">
             <div className="bg-red-600 text-white font-bold text-center py-3 uppercase tracking-widest text-sm">
               By The Numbers
@@ -310,6 +310,7 @@ export default function App() {
               </div>
             </div>
 
+            {/* Goldman Sachs Quote Box */}
             <div className="mt-6 bg-white border border-gray-300 p-6 flex items-start gap-4 shadow-lg">
               <div className="bg-[#7399C6] text-white p-2 text-xs font-serif leading-none shrink-0 w-16 text-center">
                 Goldman<br />Sachs
@@ -324,13 +325,14 @@ export default function App() {
 
       {/* --- PLATFORM SHOWCASE --- */}
       <Section id="platform" className="bg-black">
+        {/* INJECT STYLES DIRECTLY */}
         <style>{`
           @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
           }
           .animate-marquee-fast {
-            animation: marquee 10s linear infinite;
+            animation: marquee 10s linear infinite; /* Speed: 10s */
             width: max-content;
           }
         `}</style>
@@ -340,7 +342,11 @@ export default function App() {
 
           return (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+              {/* LEFT COLUMN: TV + PARTNERS */}
               <div className="flex flex-col w-full">
+
+                {/* TV Image (Centered) */}
                 <div className="relative z-10 w-full max-w-xl mx-auto">
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-red-600 blur-[100px] opacity-20 pointer-events-none"></div>
                   <img
@@ -350,15 +356,19 @@ export default function App() {
                   />
                 </div>
 
+                {/* PARTNERS SECTION (Centered under TV) */}
                 <div className="w-full max-w-xl mx-auto mt-8">
+                  {/* Header: Centered Text */}
                   <h3 className="text-white font-anton uppercase tracking-widest mb-6 text-xl text-center">
                     World-Class Partner Platforms
                   </h3>
 
+                  {/* Marquee Container */}
                   <div className="relative w-full overflow-hidden h-16 flex items-center bg-zinc-900/30 rounded-lg border border-white/5">
                     <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-black to-transparent z-20"></div>
                     <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black to-transparent z-20"></div>
 
+                    {/* Moving Track */}
                     <div className="animate-marquee-fast flex items-center gap-12 pl-4">
                       {partners.map((brand, i) => (
                         <span key={i} className="text-2xl font-black italic text-gray-400 shrink-0 uppercase tracking-tighter hover:text-white transition-colors">
@@ -368,8 +378,10 @@ export default function App() {
                     </div>
                   </div>
                 </div>
+
               </div>
 
+              {/* RIGHT COLUMN: TEXT CONTENT */}
               <div className="flex flex-col justify-center lg:pl-8 lg:pt-12">
                 <div className="text-white italic font-bold mb-4 tracking-widest text-sm uppercase flex items-center gap-3">
                   <span className="w-8 h-[2px] bg-red-600"></span>
@@ -390,12 +402,12 @@ export default function App() {
                   </p>
                 </div>
               </div>
+
             </div>
           );
         })()}
       </Section>
 
-      {/* --- TRACTION SECTION (Replaces Why Invest) --- */}
       <section className="bg-black border-y border-gray-800 overflow-hidden">
         <div className="flex flex-col lg:flex-row h-auto lg:h-[800px]">
           {/* Left Side: Stats */}
@@ -455,7 +467,7 @@ export default function App() {
           </div>
 
           {/* Right Side: Posters Marquee 
-              FIX: Increased height to h-60 (240px) on mobile for a slightly larger strip.
+              FIX: Reduced height to h-48 (192px) on mobile for a smaller strip.
           */}
           <div className="lg:w-1/2 bg-zinc-900 relative overflow-hidden flex items-center h-96 md:h-64 lg:h-auto">
             {/* Gradient Overlays for smooth edges */}
@@ -464,7 +476,7 @@ export default function App() {
 
             <div
               className="flex items-center animate-marquee h-[80%]"
-              style={{ animationDuration: '15s' }}
+              style={{ animationDuration: '5s' }}
             >
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num, i) => (
                 <div key={i} className="flex-shrink-0 mx-4 h-full group">
@@ -482,7 +494,10 @@ export default function App() {
 
       {/* --- ROADMAP SECTION --- */}
       <section id="roadmap" className="bg-black py-24 border-y border-gray-800">
+        {/* ADDED items-start TO GRID to ensure sticky column works with long content */}
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 relative items-start">
+
+          {/* LEFT: Sticky Text Content */}
           <div className="hidden lg:block sticky top-32">
             <div>
               <div className="text-gray-400 font-bold italic uppercase tracking-wider text-sm mb-4">
@@ -498,6 +513,7 @@ export default function App() {
             </div>
           </div>
 
+          {/* MOBILE Header (Non-sticky) */}
           <div className="lg:hidden mb-8">
             <div className="text-gray-400 font-bold italic uppercase tracking-wider text-sm mb-4">
               Roadmap
@@ -510,9 +526,11 @@ export default function App() {
             </p>
           </div>
 
+          {/* RIGHT: Scrollable Roadmap Items */}
           <div className="relative pl-8 lg:border-l-0 border-l-2 border-transparent">
             <RoadmapList />
           </div>
+
         </div>
       </section>
 
@@ -537,6 +555,9 @@ export default function App() {
   );
 }
 
+/**
+ * Roadmap Item List Component
+ */
 const RoadmapList = () => {
   const items = [
     { label: "Editorial website launch", status: "completed" },
@@ -557,7 +578,9 @@ const RoadmapList = () => {
 
   return (
     <div className="relative pl-4 lg:pl-0">
+      {/* Vertical Timeline Line */}
       <div className="absolute left-9 lg:left-5 top-2 bottom-10 w-[2px] bg-gray-800"></div>
+
       <div className="space-y-8 relative z-10 pb-24">
         {items.map((item, index) => (
           <RoadmapItem key={index} text={item.label} status={item.status} />
@@ -567,6 +590,11 @@ const RoadmapList = () => {
   );
 };
 
+/**
+ * Individual Roadmap Item
+ * - Reversible Animation (Scroll Up/Down)
+ * - Scale Animation for Checkmark
+ */
 const RoadmapItem = ({ text, status }) => {
   const [isInView, setIsInView] = useState(false);
   const domRef = useRef();
@@ -575,12 +603,13 @@ const RoadmapItem = ({ text, status }) => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          // Updates state based on intersection (allows reversing)
           setIsInView(entry.isIntersecting);
         });
       },
       {
-        threshold: 0.5,
-        rootMargin: "0px 0px -20% 0px"
+        threshold: 0.5, // Trigger when 50% of the item is visible
+        rootMargin: "0px 0px -20% 0px" // Offset slightly so it triggers closer to center
       }
     );
 
@@ -588,6 +617,7 @@ const RoadmapItem = ({ text, status }) => {
     return () => observer.disconnect();
   }, []);
 
+  // "upcoming" items (Coming Soon) never get the red active state
   const isCompleted = status === "completed";
   const isActive = isCompleted && isInView;
 
@@ -596,6 +626,7 @@ const RoadmapItem = ({ text, status }) => {
       ref={domRef}
       className="flex items-center gap-6 group"
     >
+      {/* Circle Marker */}
       <div
         className={`
           shrink-0 w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 z-10 relative
@@ -605,11 +636,13 @@ const RoadmapItem = ({ text, status }) => {
           }
         `}
       >
+        {/* Checkmark Container with Scale Animation */}
         <div className={`transform transition-transform duration-500 ease-back-out ${isActive ? 'scale-100' : 'scale-0'}`}>
           <Check className="text-white w-5 h-5" strokeWidth={3} />
         </div>
       </div>
 
+      {/* Card Content */}
       <div
         className={`
           flex-1 py-5 px-6 uppercase font-bold text-sm md:text-base tracking-widest transition-all duration-500 ease-out transform
@@ -625,6 +658,9 @@ const RoadmapItem = ({ text, status }) => {
   );
 };
 
+/**
+ * Helper Components
+ */
 const ComparisonRow = ({ title, desc }) => (
   <div className="flex items-start gap-5 p-4 rounded-lg hover:bg-gray-900/50 transition duration-300">
     <div className="mt-1 w-8 h-8 rounded-full bg-red-600/10 text-red-600 flex items-center justify-center shrink-0 border border-red-600/20">
