@@ -36,10 +36,11 @@ const Button = ({ children, className = "", primary = true, animated = false }) 
 );
 
 const ImpactShowcase = () => {
+  // Updated data with actual image paths
   const campaigns = [
-    { client: "Ford", title: "Drive Dreams", views: "18MM+", color: "bg-blue-900" },
-    { client: "Sony Pictures", title: "Bad Boys Franchise", views: "13MM+", color: "bg-purple-900" },
-    { client: "Bounty", title: "Cooking Clean", views: "8MM+", color: "bg-green-900" },
+    { client: "Ford", title: "Drive Dreams", views: "18MM+", img: "/thumbnail/1.webp" },
+    { client: "Sony Pictures", title: "Bad Boys Franchise", views: "13MM+", img: "/thumbnail/2.webp" },
+    { client: "Bounty", title: "Cooking Clean", views: "8MM+", img: "/thumbnail/3.webp" },
   ];
 
   const brands = ["Doritos", "Heineken", "Gatorade", "Walmart", "Ford"];
@@ -52,25 +53,39 @@ const ImpactShowcase = () => {
       </h3>
 
       {/* Campaign Thumbnails */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
         {campaigns.map((camp, i) => (
-          <div key={i} className="group relative">
-            {/* Image Placeholder - Replace with actual campaign screenshots if available */}
-            <div className={`aspect-video rounded-xl ${camp.color} bg-opacity-20 border border-white/10 overflow-hidden relative mb-4`}>
-              <div className="absolute inset-0 flex items-center justify-center text-white/20 font-anton text-4xl uppercase tracking-widest">
+          <div key={i} className="group cursor-pointer">
+            {/* Image Container with Hover Zoom Effect */}
+            <div className="aspect-video rounded-xl overflow-hidden relative mb-5 border border-white/10 shadow-2xl group-hover:border-red-600/50 transition-all duration-500">
+              <div className="absolute inset-0 bg-black/20 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+              <img
+                src={camp.img}
+                alt={`${camp.client} Campaign`}
+                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
+              />
+
+              {/* Optional: Client Badge on Image */}
+              <div className="absolute top-4 left-4 z-20 bg-black/80 backdrop-blur-md px-3 py-1 rounded text-xs font-bold uppercase tracking-widest text-white/90 border border-white/10">
                 {camp.client}
               </div>
             </div>
 
             {/* Metrics */}
-            <div className="flex justify-between items-end border-b border-white/20 pb-2">
+            <div className="flex justify-between items-end border-b border-white/20 pb-4 group-hover:border-red-600/50 transition-colors duration-300">
               <div>
-                <p className="text-sm text-white/60 uppercase tracking-widest mb-1">{camp.client}</p>
-                <p className="font-bold text-lg">{camp.title}</p>
+                <p className="text-xs text-red-500 font-bold uppercase tracking-widest mb-1 group-hover:text-red-400 transition-colors">
+                  Case Study
+                </p>
+                <p className="font-anton text-2xl text-white group-hover:translate-x-1 transition-transform duration-300">
+                  {camp.title}
+                </p>
               </div>
               <div className="text-right">
-                <p className="text-3xl font-anton text-red-500">{camp.views}</p>
-                <p className="text-xs text-white/40 uppercase">Views Delivered</p>
+                <p className="text-4xl font-anton text-white group-hover:text-red-600 transition-colors duration-300">
+                  {camp.views}
+                </p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider">Views Delivered</p>
               </div>
             </div>
           </div>
@@ -78,22 +93,23 @@ const ImpactShowcase = () => {
       </div>
 
       {/* Brand Logos Strip */}
-      <div className="border-y border-white/10 py-8 mb-16">
-        <p className="text-center text-sm text-white/40 uppercase tracking-[0.2em] mb-6">
-          Iconic Brands We've Worked With
+      <div className="border-y border-white/10 py-10 mb-16 bg-white/5">
+        <p className="text-center text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-8">
+          Trusted By Iconic Global Brands
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-20 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
           {brands.map((brand) => (
-            <span key={brand} className="text-xl font-bold font-anton text-white">{brand}</span>
-            // Note: Replace these <span>s with actual <img src="..." /> logos when you have them.
+            <span key={brand} className="text-2xl font-black font-anton text-white hover:text-red-600 transition-colors cursor-default">
+              {brand}
+            </span>
           ))}
         </div>
       </div>
 
       {/* CTA Button */}
       <div className="flex justify-center">
-        <Button className="bg-red-600 hover:bg-red-700 text-white px-12 py-6 text-xl w-full md:w-auto">
-          JOIN US TO MAKE HISTORY AND INVEST NOW
+        <Button className="bg-red-600 hover:bg-red-700 text-white px-16 py-6 text-xl w-full md:w-auto shadow-[0_0_40px_rgba(220,38,38,0.4)] hover:shadow-[0_0_60px_rgba(220,38,38,0.6)]">
+          BECOME A PARTNER TODAY
         </Button>
       </div>
     </div>
