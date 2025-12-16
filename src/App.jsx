@@ -10,8 +10,11 @@ import Roadmap from './components/sections/Roadmap';
 import ImpactShowcase from './components/sections/ImpactShowcase';
 import MediaShowcase from './components/sections/MediaShowcase';
 import Press from './components/sections/Press';
-import AsSeenIn from './components/sections/AsSeenIn'; // Import here
+import AsSeenIn from './components/sections/AsSeenIn';
 import DiveDeeper from './components/sections/DiveDeeper';
+import Partners from './components/sections/Partners';
+import BoardOfDirectors from './components/sections/BoardOfDirectors';
+import FAQ from './components/sections/FAQ';
 
 export default function App() {
   return (
@@ -30,8 +33,10 @@ export default function App() {
         <DiveDeeper />
         <MediaShowcase />
         <Press />
-        <AsSeenIn /> {/* Add As Seen In section here */}
-
+        <AsSeenIn />
+        <Partners />
+        <BoardOfDirectors />
+        <FAQ />
       </main>
 
       <Footer />

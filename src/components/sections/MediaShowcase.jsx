@@ -18,8 +18,6 @@ const createPlayer = (src) => (
         autoPlay
         muted
         loop
-    // Remove autoPlay, muted, loop for general showcase media to respect user control, 
-    // unlike the Hero banner where autoPlay/muted is standard.
     >
         <MediaProvider />
         {/* Default controls and UI for video playback */}

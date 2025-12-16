@@ -111,7 +111,7 @@ const Partners = () => {
 
                 {/* Team Section Header */}
                 <div className="text-center mb-24">
-                    <h4 className="text-sm md:text-base font-serif italic tracking-[0.2em] text-gray-400 mb-3">
+                    <h4 className="font-bold italic uppercase tracking-wider text-sm mb-4">
                         TEAM
                     </h4>
                     <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-wide leading-none mb-8 font-anton">
