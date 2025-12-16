@@ -7,9 +7,11 @@ import Opportunity from './components/sections/Opportunity';
 import Platform from './components/sections/Platform';
 import Stats from './components/sections/Stats';
 import Roadmap from './components/sections/Roadmap';
-
-// Note: Ensure you create the Investors, Opportunity, Platform, Stats, and Footer files 
-// following the pattern of the files above.
+import ImpactShowcase from './components/sections/ImpactShowcase';
+import MediaShowcase from './components/sections/MediaShowcase';
+import Press from './components/sections/Press';
+import AsSeenIn from './components/sections/AsSeenIn'; // Import here
+import DiveDeeper from './components/sections/DiveDeeper';
 
 export default function App() {
   return (
@@ -24,6 +26,12 @@ export default function App() {
         <Platform />
         <Stats />
         <Roadmap />
+        <ImpactShowcase />
+        <DiveDeeper />
+        <MediaShowcase />
+        <Press />
+        <AsSeenIn /> {/* Add As Seen In section here */}
+
       </main>
 
       <Footer />
